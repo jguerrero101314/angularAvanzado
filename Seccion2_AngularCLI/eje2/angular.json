@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "clitest": {
+    "eje2": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/clitest",
+            "outputPath": "dist/eje2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "clitest:build"
+            "browserTarget": "eje2:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "clitest:build:production"
+              "browserTarget": "eje2:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clitest:build"
+            "browserTarget": "eje2:build"
           }
         },
         "test": {
@@ -110,18 +110,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "clitest:serve"
+            "devServerTarget": "eje2:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "clitest:serve:production"
+              "devServerTarget": "eje2:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "clitest",
+  "defaultProject": "eje2",
   "cli": {
     "analytics": false
   }
