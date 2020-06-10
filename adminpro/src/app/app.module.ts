@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// Rutas
 import { AppRoutingModule } from './app-routing.module';
+
+// Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './share/nopagefound/nopagefound.component';
