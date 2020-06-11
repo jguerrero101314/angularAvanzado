@@ -14,6 +14,7 @@ import { Graficas1Component } from './pages/graficas1/graficas1.component';
 import { HeaderComponent } from './share/header/header.component';
 import { SidebarComponent } from './share/sidebar/sidebar.component';
 import { BreadcrumbsComponent } from './share/breadcrumbs/breadcrumbs.component';
+import { PagesComponent } from './pages/pages.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BreadcrumbsComponent } from './share/breadcrumbs/breadcrumbs.component'
     Graficas1Component,
     HeaderComponent,
     SidebarComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,
