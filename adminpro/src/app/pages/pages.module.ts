@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
 import { ProgressComponent } from './progress/progress.component';
 import { SharedModule } from '../shared/shared.module';
+import { PAGES_ROUTES } from './pages.routes';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
     ProgressComponent,
     PagesComponent
   ],
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, PAGES_ROUTES],
   exports: [DashboardComponent, Graficas1Component, ProgressComponent, PagesComponent],
 })
 export class PagesModule {}
