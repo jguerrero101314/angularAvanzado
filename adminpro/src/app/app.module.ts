@@ -15,6 +15,7 @@ import { HeaderComponent } from './share/header/header.component';
 import { SidebarComponent } from './share/sidebar/sidebar.component';
 import { BreadcrumbsComponent } from './share/breadcrumbs/breadcrumbs.component';
 import { PagesComponent } from './pages/pages.component';
+import { RegisterComponent } from './login/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PagesComponent } from './pages/pages.component';
     HeaderComponent,
     SidebarComponent,
     BreadcrumbsComponent,
-    PagesComponent
+    PagesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
