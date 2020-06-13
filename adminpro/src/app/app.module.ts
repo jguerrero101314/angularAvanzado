@@ -7,10 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 // Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { NopagefoundComponent } from './share/nopagefound/nopagefound.component';
-import { HeaderComponent } from './share/header/header.component';
-import { SidebarComponent } from './share/sidebar/sidebar.component';
-import { BreadcrumbsComponent } from './share/breadcrumbs/breadcrumbs.component';
 import { RegisterComponent } from './login/register.component';
 
 // Paginas modulos
@@ -20,10 +16,6 @@ import { PagesModule } from './pages/pages.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    NopagefoundComponent,
-    HeaderComponent,
-    SidebarComponent,
-    BreadcrumbsComponent,
     RegisterComponent
   ],
   imports: [
