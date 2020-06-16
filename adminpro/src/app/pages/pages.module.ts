@@ -9,15 +9,23 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { ProgressComponent } from './progress/progress.component';
 import { SharedModule } from '../shared/shared.module';
 import { PAGES_ROUTES } from './pages.routes';
+import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     Graficas1Component,
     ProgressComponent,
-    PagesComponent
+    PagesComponent,
+    IncrementadorComponent
   ],
   imports: [CommonModule, SharedModule, PAGES_ROUTES, FormsModule],
-  exports: [DashboardComponent, Graficas1Component, ProgressComponent, PagesComponent],
+  exports: [
+    DashboardComponent,
+     Graficas1Component,
+      ProgressComponent,
+       PagesComponent,
+        IncrementadorComponent
+      ],
 })
 export class PagesModule {}
