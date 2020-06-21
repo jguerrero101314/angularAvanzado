@@ -10,9 +10,7 @@ export class IncrementadorComponent implements OnInit {
   @Input('Nombre') leyenda: string = 'Leyenda';
   @Input() porcentaje: number = 50;
 
-  @Output('actualizaValor') cambioValor: EventEmitter<
-    number
-  > = new EventEmitter();
+  @Output('actualizaValor') cambioValor: EventEmitter<number> = new EventEmitter();
 
   constructor() {
     console.log('Leyenda: ', this.leyenda);
