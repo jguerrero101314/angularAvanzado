@@ -13,6 +13,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { PAGES_ROUTES } from './pages.routes';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -20,7 +21,8 @@ import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.co
     ProgressComponent,
     PagesComponent,
     IncrementadorComponent,
-    GraficaDonaComponent
+    GraficaDonaComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.co
     ProgressComponent,
     PagesComponent,
     IncrementadorComponent,
-    GraficaDonaComponent
+    GraficaDonaComponent,
+    AccountSettingsComponent
   ],
 })
 export class PagesModule {}
