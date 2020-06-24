@@ -10,10 +10,12 @@ import { SettingService } from '../../services/setting.service';
 export class AccountSettingsComponent implements OnInit {
   constructor(public _ajustes: SettingService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.colocarCheack();
+  }
   cambiarColor(tema: string, link: any) {
     this.aplicarCheack(link);
-    this._ajustes.aplicarTema( tema );
+    this._ajustes.aplicarTema(tema);
   }
   aplicarCheack(link: any) {
     let selectores: any = document.getElementsByClassName('selector');
@@ -21,5 +23,16 @@ export class AccountSettingsComponent implements OnInit {
       ref.classList.remove('working');
     }
     link.classList.add('working');
+  }
+
+  colocarCheack() {
+    let selectores: any = document.getElementsByClassName('selector');
+    let tema = this._ajustes.ajustes.tema;
+    for (let ref of selectores) {
+      if (ref.getAttribute('data-theme') === tema) {
+        ref.classList.add('working');
+        break;
+      }
+    }
   }
 }
