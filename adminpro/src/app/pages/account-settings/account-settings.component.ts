@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { SettingService } from '../../services/setting.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -7,16 +8,12 @@ import { DOCUMENT } from '@angular/common';
   styles: [],
 })
 export class AccountSettingsComponent implements OnInit {
-  constructor(@Inject(DOCUMENT) private _document) {}
+  constructor(public _ajustes: SettingService) {}
 
   ngOnInit(): void {}
   cambiarColor(tema: string, link: any) {
-    console.log(link);
-
     this.aplicarCheack(link);
-
-    let url = `assets/css/colors/${tema}.css`;
-    this._document.getElementById('tema').setAttribute('href', url);
+    this._ajustes.aplicarTema( tema );
   }
   aplicarCheack(link: any) {
     let selectores: any = document.getElementsByClassName('selector');
