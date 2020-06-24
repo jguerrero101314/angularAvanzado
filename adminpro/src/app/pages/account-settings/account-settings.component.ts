@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { SettingService } from '../../services/setting.service';
+import { SettingService } from '../../services/settings/setting.service';
 
 @Component({
   selector: 'app-account-settings',
