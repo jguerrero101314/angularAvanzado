@@ -7,13 +7,13 @@ import { GraficasComponent } from './graficas/graficas.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'dashboard',
     component: PagesComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: '', component: DashboardComponent },
       { path: 'progress', component: ProgressComponent },
       { path: 'grafica1', component: GraficasComponent },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+     
     ],
   },
 ];
