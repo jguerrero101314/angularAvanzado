@@ -4,24 +4,16 @@
       <div class="card-body">
         <h4 class="card-title">Default Progress bars</h4>
         <div class="progress m-t-20">
-          <div
-            class="progress-bar bg-primary progress-bar-striped active"
-            style="height: 15px;"
-            role="progressbar"
-          >
-            <!-- {{ getPorcentaje }} -->
+          <div class="progress-bar bg-primary progress-bar-striped active" style="height: 15px;"
+            [style.width]="getProgreso1" role="progressbar">
+            {{ getProgreso1 }}
           </div>
         </div>
 
-
-
         <div class="progress m-t-20">
-          <div
-            class="progress-bar bg-primary progress-bar-striped active"
-            style="height: 15px;"
-            role="progressbar"
-          >
-            <!-- {{ getPorcentaje }} -->
+          <div class="progress-bar bg-primary progress-bar-striped active" style="height: 15px;"
+            [style.width]="getProgreso2" role="progressbar">
+            {{ getProgreso2 }}
           </div>
         </div>
       </div>
@@ -33,7 +25,7 @@
   <div class="col-6">
     <div class="card">
       <div class="card-body">
-        <app-incrementador [progreso]="15"></app-incrementador>
+        <app-incrementador (valor)="progreso1 = $event" [valor]="progreso1"></app-incrementador>
       </div>
     </div>
   </div>
@@ -41,7 +33,7 @@
   <div class="col-6">
     <div class="card">
       <div class="card-body">
-        <app-incrementador></app-incrementador>
+        <app-incrementador (valor)="progreso2 = $event" [valor]="progreso2"></app-incrementador>
       </div>
     </div>
   </div>
