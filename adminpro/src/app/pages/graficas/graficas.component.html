@@ -1,18 +1,17 @@
 <div class="row">
   <div class="col-6">
-    <div class="card">
-      <div class="card-body"></div>
-      <h3 class="ml-2">Sales</h3>
-      <div style="display: block;">
-        <canvas
-          baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          chartType="doughnut"
-          [colors]="colors"
-        >
-        </canvas>
-      </div>
-    </div>
+    <app-dona  title="Ventas"></app-dona>
+  </div>
+  <div class="col-6">
+    <app-dona  title="Compras" [labels]="labels1" [data]="data1"></app-dona>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <app-dona title="Reembolsos"></app-dona>
+  </div>
+  <div class="col-6">
+    <app-dona title="Dañados"></app-dona>
   </div>
 </div>
