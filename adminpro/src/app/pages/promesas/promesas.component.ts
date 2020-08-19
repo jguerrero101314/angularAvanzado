@@ -12,7 +12,12 @@ export class PromesasComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const promesa = new Promise( ( resolve, reject )=> {
+    this.getUsuarios().then( usuarios => {
+      console.log(usuarios);
+    });
+
+   // this.getUsuarios();
+   /* const promesa = new Promise( ( resolve, reject )=> {
       if( false ){
         resolve("Hola mundo");
       }else{
@@ -23,7 +28,27 @@ export class PromesasComponent implements OnInit {
     promesa.then( (mensaje) => {
       console.log(mensaje);
     }).catch( err => console.log('Error en mi promesa', err));
-    console.log("Fin del Init");
+    console.log("Fin del Init"); */
+  }
+
+  getUsuarios(){
+
+    return  new Promise( resolve => {
+      fetch('https://reqres.in/api/users')
+      .then( resp => resp.json() )
+      .then( body => console.log( body.data ));
+    });
+    // const promesa = new Promise( resolve => {
+    //   fetch('https://reqres.in/api/users')
+    //   .then( resp => resp.json() )
+    //   .then( body => console.log( body.data ));
+    // });
+
+    //return promesa;
+    
+      // .then( resp => {
+      //    resp.json().then( body => console.log( body ));
+      // })
   }
 
 }
