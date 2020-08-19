@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { GraficasComponent } from './graficas/graficas.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'progress', component: ProgressComponent },
       { path: 'grafica1', component: GraficasComponent },
       { path: 'account-settings', component: AccountSettingsComponent },
+      { path: 'promesas', component: PromesasComponent },
     ],
   },
 ];
