@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const dbConnection = async() => {
     try {
-        await mongoose.connect('mongodb+srv://mean_user:LrsjeR2QyCCB9S6c@cluster0.ngbyg.mongodb.net/hospitaldb', {
+        await mongoose.connect(process.env.DB_CNN, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
