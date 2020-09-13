@@ -14,8 +14,6 @@ dbConnection();
 
 console.log(process.env);
 
-
-
 // Rutas
 app.get('/', (req, res) => {
     res.json({
