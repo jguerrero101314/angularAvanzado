@@ -7,7 +7,8 @@ const getUsuarios = async(req, res) => {
     const usuarios = await Usuario.find({}, 'nombre role email google apellido img');
     res.json({
         ok: true,
-        usuarios
+        usuarios,
+        uid: req.uid
     });
 }
 
