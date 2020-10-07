@@ -69,21 +69,17 @@ const actualizarUsuario = async(req, res = response) => {
         }
 
         // Actualizaciones
-        const campos = req.body;
-        if (usuarioDB.email === req.body.email) {
-            delete campos.email;
-        } else {
-            const existeEmail = await Usuario.findOne({ email: req.body.email });
+        const { password, google, email, ...campos } = req.body;
+        if (usuarioDB.email != email) {
+            const existeEmail = await Usuario.findOne({ email });
             if (existeEmail) {
                 return res.status(400), json({
                     ok: false,
                     msg: 'Ya existe un usuario con ese email'
                 });
             }
-
         }
-        delete campos.password;
-        delete campos.google;
+        campos.email = email;
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 
