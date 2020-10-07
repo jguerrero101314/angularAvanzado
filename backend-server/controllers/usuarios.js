@@ -1,6 +1,7 @@
 const Usuario = require('../models/usuario');
 const { response, json } = require('express');
 const bcryptjs = require('bcryptjs');
+const { generarJWT } = require('../helpers/jwt');
 
 const getUsuarios = async(req, res) => {
     const usuarios = await Usuario.find({}, 'nombre role email google apellido img');
@@ -13,9 +14,6 @@ const getUsuarios = async(req, res) => {
 const crearUsuarios = async(req, res = response) => {
 
     const { email, password, nombre, apellido } = req.body;
-
-
-
     try {
 
         const existeEmail = await Usuario.findOne({ email });
@@ -33,12 +31,16 @@ const crearUsuarios = async(req, res = response) => {
         const salt = bcryptjs.genSaltSync();
         usuario.password = bcryptjs.hashSync(password, salt);
 
+        // Generar el token - JWT
+        const token = await generarJWT(usuario.id);
+
         // Guardar usuario
         await usuario.save();
 
         res.json({
             ok: true,
-            usuario
+            usuario,
+            token
         });
 
 
