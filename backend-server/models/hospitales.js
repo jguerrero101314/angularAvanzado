@@ -1,7 +1,4 @@
 const { Schema, model } = require('mongoose');
-
-
-
 const HospitalSchema = Schema({
     nombre: {
         type: String,
