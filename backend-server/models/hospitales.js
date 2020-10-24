@@ -9,6 +9,7 @@ const HospitalSchema = Schema({
         type: String
     },
     usuario: {
+        required: true,
         type: Schema.Types.ObjectId,
         ref: 'Usuario'
     }
@@ -17,7 +18,6 @@ const HospitalSchema = Schema({
 
 HospitalSchema.method('toJSON', function() {
     const { _v, ...object } = this.toObject();
-    object.uid = _id;
     return object;
 });
 
