@@ -22,7 +22,6 @@ const MedicosSchema = Schema({
 
 MedicosSchema.method('toJSON', function() {
     const { _v, ...object } = this.toObject();
-    object.uid = _id;
     return object;
 });
 
