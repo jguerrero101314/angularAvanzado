@@ -3,18 +3,19 @@ const MedicosSchema = Schema({
     nombre: {
         type: String,
         required: true
-
     },
     img: {
         type: String
     },
     usuario: {
         type: Schema.Types.ObjectId,
-        ref: 'Usuario'
+        ref: 'Usuario',
+        required: true
     },
     hospital: {
         type: Schema.Types.ObjectId,
-        ref: 'Hospitales'
+        ref: 'Hospitales',
+        require: true
     }
 
 }, { collection: 'medicos' });
@@ -25,4 +26,4 @@ MedicosSchema.method('toJSON', function() {
     return object;
 });
 
-module.exports = model('Hospitales', MedicosSchema);
+module.exports = model('Medicos', MedicosSchema);
