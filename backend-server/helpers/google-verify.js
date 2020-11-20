@@ -6,17 +6,11 @@ let token;
 const googleVerify = async(token) => {
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.GOOGLE_ID, // Specify the CLIENT_ID of the app that accesses the backend
-        // Or, if multiple clients access the backend:
-        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        audience: process.env.GOOGLE_ID,
     });
 
 
     const payload = ticket.getPayload();
-    console.log(payload);
-    const userid = payload['sub'];
-
-    console.log(payload);
     const { name, email, picture } = payload;
 
     return { name, email, picture };
