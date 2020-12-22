@@ -24,7 +24,7 @@ export class LoginComponent {
     private usuarioService: UsuarioService
   ) {}
 
-  login(formData: LoginForm) {
+  login() {
     this.usuarioService.login(this.loginForm.value)
         .subscribe( resp => {
           Swal.fire(`Bienvenido`, '' , 'success')
