@@ -13,7 +13,7 @@ export class LoginComponent {
   public formSubmitted = false;
 
   public loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     remember: [false],
   });
@@ -27,6 +27,11 @@ export class LoginComponent {
   login() {
     this.usuarioService.login(this.loginForm.value)
         .subscribe( resp => {
+          if( this.loginForm.get('remember').value){
+            localStorage.setItem('email', this.loginForm.get('email').value);
+          }else{
+            localStorage.removeItem('email');
+          }
           Swal.fire(`Bienvenido`, '' , 'success')
         }, (err) => {
           Swal.fire('Error', err.error.msg,'error')
