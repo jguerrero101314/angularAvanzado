@@ -45,18 +45,12 @@ export class UsuariosService {
 
   
     return this.http
-      .get(`https://reqres111.in/api/user`, {
+      .get(`https://reqres11.in/api/user`, {
         params
       })
       .pipe(
-        map((resp) => resp['data']),
-        catchError(this.manejarError)
+        map((resp) => resp['data'])
       );
   }
-  manejarError(error: HttpErrorResponse) {
-    console.log('sucedio un error');
-    console.log('registrado en el log file');
-    console.warn(error);
-    return throwError('Error personalizado');
-  }
+
 }

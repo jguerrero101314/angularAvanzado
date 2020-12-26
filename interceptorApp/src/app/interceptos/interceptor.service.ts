@@ -1,6 +1,7 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,30 @@ import { Observable } from 'rxjs';
 export class InterceptorService implements HttpInterceptor {
 
   constructor() { 
-    
+
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Paso x el interceptor");
     
-    return next.handle(req);
+
+        const headers = new HttpHeaders({
+        'token-usuario': "ABC1221212"
+       });
+
+       const reqClone = req.clone({
+         headers
+       });
+    
+    return next.handle(reqClone).pipe(
+      catchError(this.manejarError)
+    );
+  }
+
+
+  manejarError(error: HttpErrorResponse) {
+    console.log('sucedio un error');
+    console.log('registrado en el log file');
+    console.warn(error);
+    return throwError('Error personalizado');
   }
  
 }
