@@ -13,6 +13,8 @@ export class AppComponent {
 
     this.usuariosService.obtenerUsuarios().subscribe(resp => {
       console.log(resp);
+    }, (err )=>{
+      console.log("error en el app component", err);
     })
 
   }
