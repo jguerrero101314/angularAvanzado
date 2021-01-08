@@ -4,16 +4,15 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2';
 
-
-declare const gapi:any;
+declare const gapi: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   public formSubmitted = false;
-  public auth2:any;
+  public auth2: any;
 
   public loginForm = this.fb.group({
     email: [
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit{
     private fb: FormBuilder,
     private usuarioService: UsuarioService
   ) {}
-  ngOnInit():void{
+  ngOnInit(): void {
     this.renderButton();
   }
 
@@ -41,15 +40,14 @@ export class LoginComponent implements OnInit{
         } else {
           localStorage.removeItem('email');
         }
-        Swal.fire(`Bienvenido`, '', 'success');
+         this.router.navigateByUrl('/');
       },
       (err) => {
         Swal.fire('Error', err.error.msg, 'error');
       }
     );
-    //  this.router.navigateByUrl('/');
   }
-   //  let id_token = googleUser.getAuthResponse().id_token;
+  //  let id_token = googleUser.getAuthResponse().id_token;
   //  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
   //  console.log(id_token);
 
@@ -59,31 +57,38 @@ export class LoginComponent implements OnInit{
       width: 240,
       height: 50,
       longtitle: true,
-      theme: 'dark'
+      theme: 'dark',
     });
     this.startApp();
   }
-   startApp() {
+  startApp() {
     gapi.load('auth2', () => {
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       this.auth2 = gapi.auth2.init({
-        client_id: '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
+        client_id:
+          '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
       });
-        this.attachSignin(document.getElementById('my-signin2'));
+      this.attachSignin(document.getElementById('my-signin2'));
     });
-  };
+  }
+
   attachSignin(element) {
     console.log(element.id);
-    this.auth2.attachClickHandler(element, {},
-        (googleUser) => {
-          const id_token = googleUser.getAuthResponse().id_token;
-          console.log('id token del login component ts',id_token);
-          this.usuarioService.loginGoogle(id_token).subscribe();
-
+    this.auth2.attachClickHandler(
+      element,
+      {},
+      (googleUser) => {
+        const id_token = googleUser.getAuthResponse().id_token;
+        console.log('id token del login component ts', id_token);
+        this.usuarioService.loginGoogle(id_token).subscribe((resp) => {
           //TODO: mover al dashboard
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
+          this.router.navigateByUrl('/');
         });
+      },
+      function (error) {
+        alert(JSON.stringify(error, undefined, 2));
+      }
+    );
   }
 }
