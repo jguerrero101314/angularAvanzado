@@ -34,7 +34,6 @@ export class RegisterComponent {
     // realizar el posteo
     this.usuarioService.crearUsuario(this.registerForm.value)
       .subscribe(resp => {
-        Swal.fire('Usuario creado exitosamente','' , 'success')
         //TODO: mover al dashboard
         this.router.navigateByUrl('/');
       }, (err) => {
