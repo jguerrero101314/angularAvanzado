@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private ngZone: NgZone
   ) {}
   ngOnInit(): void {
     this.renderButton();
@@ -47,9 +48,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  //  let id_token = googleUser.getAuthResponse().id_token;
-  //  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-  //  console.log(id_token);
 
   renderButton() {
     gapi.signin2.render('my-signin2', {
@@ -83,7 +81,9 @@ export class LoginComponent implements OnInit {
         console.log('id token del login component ts', id_token);
         this.usuarioService.loginGoogle(id_token).subscribe((resp) => {
           //TODO: mover al dashboard
-          this.router.navigateByUrl('/');
+          this.ngZone.run(() => {
+            this.router.navigateByUrl('/');
+          });  
         });
       },
       function (error) {

@@ -1,17 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterForm } from '../interfaces/register-form.interfaces';
 import { environment } from '../../environments/environment';
 import { LoginForm } from '../interfaces/login-form-interfaces';
 import { tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 const base_url = environment.base_url;
+declare const gapi:any;
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  constructor(private http: HttpClient) {}
+  public auth2:any;
+  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {}
+
+  logout(){
+    localStorage.removeItem('token');
+    
+    this.auth2.signOut().then( () => {
+      this.ngZone.run(() => {
+        this.router.navigateByUrl('/login');
+      })    
+    });
+  }
+
+  googleInit(){
+    gapi.load('auth2', () => {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      this.auth2 = gapi.auth2.init({
+        client_id:
+          '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+      });
+      
+    });
+  }
 
   validarToken(){
     const token = localStorage.getItem('token') || '';
