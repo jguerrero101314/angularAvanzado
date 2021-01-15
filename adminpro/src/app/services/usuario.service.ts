@@ -27,15 +27,17 @@ export class UsuarioService {
   }
 
   googleInit(){
-    gapi.load('auth2', () => {
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      this.auth2 = gapi.auth2.init({
-        client_id:
-          '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
+    return new Promise( resolve => {
+      gapi.load('auth2', () => {
+        // Retrieve the singleton for the GoogleAuth library and set up the client.
+        this.auth2 = gapi.auth2.init({
+          client_id:
+            '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin',
+        });
+        resolve(this.auth2);       
       });
-      
-    });
+    })
   }
 
   validarToken(){
