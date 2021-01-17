@@ -6,28 +6,33 @@ import { LoginForm } from '../interfaces/login-form-interfaces';
 import { tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
-declare const gapi:any;
+declare const gapi: any;
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  public auth2:any;
-  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {}
+  public auth2: any;
+  public usuario: Usuario;
 
-  logout(){
+
+
+  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) { }
+
+  logout() {
     localStorage.removeItem('token');
-    
-    this.auth2.signOut().then( () => {
+
+    this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
-      })    
+      })
     });
   }
 
-  googleInit(){
-    return new Promise( resolve => {
+  googleInit() {
+    return new Promise(resolve => {
       gapi.load('auth2', () => {
         // Retrieve the singleton for the GoogleAuth library and set up the client.
         this.auth2 = gapi.auth2.init({
@@ -35,23 +40,35 @@ export class UsuarioService {
             '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
-        resolve(this.auth2);       
+        resolve(this.auth2);
       });
     })
   }
 
-  validarToken(){
+  validarToken() {
     const token = localStorage.getItem('token') || '';
-     return this.http.get(`${base_url}/login/renew`, {
+    return this.http.get(`${base_url}/login/renew`, {
       headers: {
         'x-token': token
       }
     }).pipe(
-      tap( (resp:any) => {
+      tap((resp: any) => {
+        console.log(resp);
+        const {
+          apellido,
+          email,
+          google,
+          nombre,
+          role,
+          uid,
+          img
+        } = resp.Usuario;
+        this.usuario = new Usuario(nombre,email,'',img, google, role, uid);
+        this.usuario.imprimirUsuario();
         localStorage.setItem('token', resp.token);
       }),
       map(resp => true),
-      catchError( error => of(false))
+      catchError(error => of(false))
     );
   }
 
@@ -72,9 +89,9 @@ export class UsuarioService {
   }
 
   loginGoogle(token) {
-    console.log('tokenService',token);
+    console.log('tokenService', token);
     // console.log(`${base_url}/login/google`, {token});
-    return this.http.post(`${base_url}/login/google`, {token}).pipe(
+    return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
       })
