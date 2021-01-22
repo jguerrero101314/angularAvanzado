@@ -36,11 +36,18 @@ describe('Incremendator Component', () => {
         fixture.detectChanges();
         fixture.whenStable().then( () => {
             const input = fixture.debugElement.query( By.css('input'));
-            const elem = input.nativeElement;
-            console.log(elem);
-    
+            const elem = input.nativeElement; 
             expect( elem.value).toBe('55');
         });
+    });
+
+    it('Debe de incrementar/decrementa en 5, con un click en el boton', () => {
+        const botones = fixture.debugElement.queryAll( By.css('.btn-primary'));
+        botones[0].triggerEventHandler('click', null);
+        expect(component.progreso).toBe(45);
+        botones[1].triggerEventHandler('click', null);
+        expect(component.progreso).toBe(50);
+       
     });
 
 });
