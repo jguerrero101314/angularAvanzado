@@ -3,7 +3,6 @@ import { IncrementadorComponent } from './incrementador.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-
 describe('Incremendator Component', () => {
 
     let component: IncrementadorComponent;
@@ -54,7 +53,6 @@ describe('Incremendator Component', () => {
         botones[0].triggerEventHandler('click', null);
         fixture.detectChanges();
         const elem: HTMLElement = fixture.debugElement.query( By.css('h3') ).nativeElement;
-
         expect( elem.innerHTML ).toContain('45');
     });
 
