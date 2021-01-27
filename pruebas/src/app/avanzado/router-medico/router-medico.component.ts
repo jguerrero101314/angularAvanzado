@@ -18,13 +18,11 @@ export class RouterMedicoComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe( params => {
-
       this.id = params['id'];
-
     });
   }
   guardarMedico(){
-    this.router.navigate(['Medico','123'])
+    this.router.navigate(['Medico','123']);
   }
 
 }
