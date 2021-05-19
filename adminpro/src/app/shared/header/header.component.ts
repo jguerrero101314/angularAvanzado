@@ -9,11 +9,11 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class HeaderComponent {
 
-  constructor( private usuarioService: UsuarioService) { }
+  constructor( private usuarioService: UsuarioService ) { }
 
- logout(){
-   this.usuarioService.logout();
+  logout() {
+    this.usuarioService.logout();
+  }
 
- }
 
 }

@@ -24,7 +24,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -40,6 +39,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
+              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -88,7 +88,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -120,10 +119,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "adminpro",
-  "cli": {
-    "analytics": false
-  }
+    }},
+  "defaultProject": "adminpro"
 }

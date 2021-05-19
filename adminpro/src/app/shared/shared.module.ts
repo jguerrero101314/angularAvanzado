@@ -8,19 +8,17 @@ import { HeaderComponent } from './header/header.component';
 
 
 
-
 @NgModule({
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
   ],
-  exports:[
+  exports: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
   ],
-
   imports: [
     CommonModule,
     RouterModule
