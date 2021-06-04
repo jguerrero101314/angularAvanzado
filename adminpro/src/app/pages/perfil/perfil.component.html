@@ -56,11 +56,15 @@
           alt="">
 
         <div class="d-flex flex-column">
-          <input type="file">
+          <input type="file"
+            (change)="changeImage($event.target.files[0])">
 
           <button type="button"
-            class="btn btn-success waves-effect waves-light m-r-10 mt-4"><i
-              class="fa fa-save mr-1"></i>
+            class="btn btn-success waves-effect waves-light m-r-10 mt-4"
+            [disabled]="!picture"
+            (click)="subirImagen()">
+
+            <i class="fa fa-save mr-1"></i>
             Cambiar imagen</button>
         </div>
       </div>
