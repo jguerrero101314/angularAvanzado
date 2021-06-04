@@ -85,6 +85,23 @@ export class UsuarioService {
     );
   }
 
+  updateProfile(data: {
+    email: string;
+    nombre: string;
+    role: string | undefined;
+  }) {
+    data = {
+      ...data,
+      role: this.usuario.role,
+    };
+
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token,
+      },
+    });
+  }
+
   login(formData: LoginForm) {
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
