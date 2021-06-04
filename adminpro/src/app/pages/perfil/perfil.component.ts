@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from './../../models/usuario.model';
 import { FileUploadService } from './../../services/file-upload.service';
@@ -13,6 +14,7 @@ export class PerfilComponent implements OnInit {
   public perfilForm: FormGroup;
   public usuario: Usuario;
   public picture: File;
+  public imgTemp: any = null;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -30,23 +32,38 @@ export class PerfilComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log(this.perfilForm.value);
-    this.usuarioService
-      .updateProfile(this.perfilForm.value)
-      .subscribe((resp) => {
+    this.usuarioService.updateProfile(this.perfilForm.value).subscribe(
+      () => {
         const { nombre, email } = this.perfilForm.value;
         this.usuario.nombre = nombre;
         this.usuario.email = email;
-      });
+
+        Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+      },
+      (err) => {
+        Swal.fire('Error', err.error.msg, 'error');
+      }
+    );
   }
 
   changeImage(file: File) {
     this.picture = file;
+
+    if (!file) {
+      return (this.imgTemp = null);
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+    };
   }
 
   subirImagen() {
     this.fileUploadService
       .updatePicture(this.picture, 'usuarios', this.usuario.uid)
-      .then((img) => console.log(img));
+      .then((img) => (this.usuario.img = img));
   }
 }

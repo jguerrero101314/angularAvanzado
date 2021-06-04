@@ -49,25 +49,36 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Avatar</h4>
-
         <h6 class="card-subtitle">Imagen del usuario</h6>
 
-        <img src=""
-          alt="">
+        <div class="text-center">
+          <img *ngIf="!imgTemp"
+            [src]="usuario.imagenUrl"
+            class="img-avatar">
 
-        <div class="d-flex flex-column">
-          <input type="file"
-            (change)="changeImage($event.target.files[0])">
-
-          <button type="button"
-            class="btn btn-success waves-effect waves-light m-r-10 mt-4"
-            [disabled]="!picture"
-            (click)="subirImagen()">
-
-            <i class="fa fa-save mr-1"></i>
-            Cambiar imagen</button>
+          <img *ngIf="imgTemp"
+            [src]="imgTemp"
+            class="img-avatar">
         </div>
+
+        <input type="file"
+          (change)="changeImage($event.target.files[0])"
+          class="mt-3">
+
+        <br>
+        <br>
+
+        <button type="button"
+          class="btn btn-success btn-block waves-effect waves-light m-r-10"
+          [disabled]="!picture"
+          (click)="subirImagen()">
+
+          <i class="fa fa-save"></i>
+          Cambiar imagen
+        </button>
+
       </div>
     </div>
   </div>
+
 </div>
