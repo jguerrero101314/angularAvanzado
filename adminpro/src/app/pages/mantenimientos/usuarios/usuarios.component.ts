@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../../models/usuario.model';
+import { Subscription } from 'rxjs';
 import { UsuarioService } from '../../../services/usuario.service';
+import { Usuario } from './../../../models/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -10,22 +11,27 @@ import { UsuarioService } from '../../../services/usuario.service';
 export class UsuariosComponent implements OnInit {
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
+  public usuariosTemp: Usuario[] = [];
+
+  public imgSubs: Subscription;
   public desde: number = 0;
+  public cargando: boolean = true;
 
-  constructor(private readonly usuariService: UsuarioService) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.cargarUsuarios();
   }
 
   cargarUsuarios() {
-    this.usuariService
-      .cargarUsuario(this.desde)
+    this.cargando = true;
+    this.usuarioService
+      .cargarUsuarios(this.desde)
       .subscribe(({ total, usuarios }) => {
         this.totalUsuarios = total;
-        if (usuarios.length !== 0) {
-          this.usuarios = usuarios;
-        }
+        this.usuarios = usuarios;
+        this.usuariosTemp = usuarios;
+        this.cargando = false;
       });
   }
 
