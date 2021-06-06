@@ -10,13 +10,32 @@ import { UsuarioService } from '../../../services/usuario.service';
 export class UsuariosComponent implements OnInit {
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
+  public desde: number = 0;
 
   constructor(private readonly usuariService: UsuarioService) {}
 
   ngOnInit(): void {
-    this.usuariService.cargarUsuario(0).subscribe(({ total, usuarios }) => {
-      this.totalUsuarios = total;
-      this.usuarios = usuarios;
-    });
+    this.cargarUsuarios();
+  }
+
+  cargarUsuarios() {
+    this.usuariService
+      .cargarUsuario(this.desde)
+      .subscribe(({ total, usuarios }) => {
+        this.totalUsuarios = total;
+        if (usuarios.length !== 0) {
+          this.usuarios = usuarios;
+        }
+      });
+  }
+
+  cambiarPagina(valor: number) {
+    this.desde += valor;
+    if (this.desde < 0) {
+      this.desde = 0;
+    } else if (this.desde >= this.totalUsuarios) {
+      this.desde -= valor;
+    }
+    this.cargarUsuarios();
   }
 }
