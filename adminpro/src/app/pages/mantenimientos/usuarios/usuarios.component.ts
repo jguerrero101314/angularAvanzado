@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
@@ -28,6 +29,10 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.cargarUsuarios();
+    this.modalImagenService.nuevaImagen.pipe(delay(100)).subscribe((img) => {
+      console.log(img);
+      this.cargarUsuarios();
+    });
   }
 
   cargarUsuarios() {

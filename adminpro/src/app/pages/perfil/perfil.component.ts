@@ -13,25 +13,25 @@ import { FileUploadService } from './../../services/file-upload.service';
 export class PerfilComponent implements OnInit {
   public perfilForm: FormGroup;
   public usuario: Usuario;
-  public picture: File;
+  public imagenSubir: File;
   public imgTemp: any = null;
 
   constructor(
-    private readonly fb: FormBuilder,
-    private readonly usuarioService: UsuarioService,
-    private readonly fileUploadService: FileUploadService
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private fileUploadService: FileUploadService
   ) {
     this.usuario = usuarioService.usuario;
   }
 
   ngOnInit(): void {
     this.perfilForm = this.fb.group({
-      nombre: [this.usuario.nombre, [Validators.required]],
+      nombre: [this.usuario.nombre, Validators.required],
       email: [this.usuario.email, [Validators.required, Validators.email]],
     });
   }
 
-  updateProfile() {
+  actualizarPerfil() {
     this.usuarioService.updateProfile(this.perfilForm.value).subscribe(
       () => {
         const { nombre, email } = this.perfilForm.value;
@@ -46,8 +46,8 @@ export class PerfilComponent implements OnInit {
     );
   }
 
-  changeImage(file: File) {
-    this.picture = file;
+  cambiarImagen(file: File) {
+    this.imagenSubir = file;
 
     if (!file) {
       return (this.imgTemp = null);
@@ -63,12 +63,13 @@ export class PerfilComponent implements OnInit {
 
   subirImagen() {
     this.fileUploadService
-      .updatePicture(this.picture, 'usuarios', this.usuario.uid)
+      .updatePicture(this.imagenSubir, 'usuarios', this.usuario.uid)
       .then((img) => {
         this.usuario.img = img;
-        Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+        Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       })
       .catch((err) => {
+        console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
       });
   }

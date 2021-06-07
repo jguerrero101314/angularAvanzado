@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 const base_url = environment.base_url;
@@ -7,10 +7,12 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class ModalImagenService {
-  private _ocultarModal = true;
-  public tipo: string;
+  private _ocultarModal: boolean = true;
+  public tipo: 'usuarios' | 'medicos' | 'hospitales';
   public id: string;
-  public img?: string;
+  public img: string;
+
+  public nuevaImagen: EventEmitter<string> = new EventEmitter<string>();
 
   get ocultarModal() {
     return this._ocultarModal;
@@ -19,12 +21,12 @@ export class ModalImagenService {
   abrirModal(
     tipo: 'usuarios' | 'medicos' | 'hospitales',
     id: string,
-    img?: string = 'no-img'
+    img: string = 'no-img'
   ) {
     this._ocultarModal = false;
     this.tipo = tipo;
     this.id = id;
-    this.img = img;
+    // localhost:3000/api/upload/medicos/no-img
     if (img.includes('https')) {
       this.img = img;
     } else {
@@ -35,6 +37,4 @@ export class ModalImagenService {
   cerrarModal() {
     this._ocultarModal = true;
   }
-
-  constructor() {}
 }
