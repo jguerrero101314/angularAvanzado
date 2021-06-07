@@ -68,7 +68,9 @@
                 <td>{{ usuario.nombre }}</td>
 
                 <td>
-                  <select class="form-control">
+                  <select class="form-control"
+                    [(ngModel)]="usuario.role"
+                    (change)="cambiarRole(usuario)">
                     <option value="ADMIN_ROLE">Admin</option>
 
                     <option value="USER_ROLE">User</option>
@@ -84,10 +86,6 @@
                 </td>
 
                 <td class="text-nowrap text-center">
-                  <a href="#"
-                    data-toggle="tooltip"
-                    data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i>
-                  </a>
 
                   <a data-toggle="tooltip"
                     data-original-title="Borrar"
