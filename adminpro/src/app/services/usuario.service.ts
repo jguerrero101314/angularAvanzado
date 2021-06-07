@@ -145,4 +145,10 @@ export class UsuarioService {
       })
     );
   }
+
+  eliminarUsuario(usuario: Usuario) {
+    // /usuarios/5eff3c5054f5efec174e9c84
+    const url = `${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete(url, this.headers);
+  }
 }
