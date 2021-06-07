@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { BusquedasService } from '../../../services/busquedas.service';
+import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from './../../../models/usuario.model';
 
@@ -21,7 +22,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private readonly usuarioService: UsuarioService,
-    private readonly busquedasService: BusquedasService
+    private readonly busquedasService: BusquedasService,
+    private readonly modalImagenService: ModalImagenService
   ) {}
 
   ngOnInit() {
@@ -90,5 +92,9 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.guardarUsuario(usuario).subscribe((resp) => {
       console.log(resp);
     });
+  }
+
+  abrirModal(usuario: Usuario) {
+    this.modalImagenService.abrirModal();
   }
 }
