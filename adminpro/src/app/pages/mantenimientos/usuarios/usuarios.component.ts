@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { BusquedasService } from '../../../services/busquedas.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from './../../../models/usuario.model';
 
@@ -17,7 +18,10 @@ export class UsuariosComponent implements OnInit {
   public desde: number = 0;
   public cargando: boolean = true;
 
-  constructor(private readonly usuarioService: UsuarioService) {}
+  constructor(
+    private readonly usuarioService: UsuarioService,
+    private readonly busquedasService: BusquedasService
+  ) {}
 
   ngOnInit() {
     this.cargarUsuarios();
@@ -32,6 +36,14 @@ export class UsuariosComponent implements OnInit {
         this.usuarios = usuarios;
         this.usuariosTemp = usuarios;
         this.cargando = false;
+      });
+  }
+
+  buscar(termino: string) {
+    this.busquedasService
+      .buscar('usuarios', termino)
+      .subscribe((resultados) => {
+        this.usuarios = resultados;
       });
   }
 
