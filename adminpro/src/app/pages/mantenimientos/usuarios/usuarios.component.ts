@@ -40,6 +40,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   buscar(termino: string) {
+    if (termino.length === 0) {
+      return (this.usuarios = this.usuariosTemp);
+    }
     this.busquedasService
       .buscar('usuarios', termino)
       .subscribe((resultados) => {
