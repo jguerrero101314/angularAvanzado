@@ -29,10 +29,16 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.cargarUsuarios();
-    this.modalImagenService.nuevaImagen.pipe(delay(100)).subscribe((img) => {
-      console.log(img);
-      this.cargarUsuarios();
-    });
+    this.imgSubs = this.modalImagenService.nuevaImagen
+      .pipe(delay(100))
+      .subscribe((img) => {
+        console.log(img);
+        this.cargarUsuarios();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.imgSubs.unsubscribe();
   }
 
   cargarUsuarios() {
