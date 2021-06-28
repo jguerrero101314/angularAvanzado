@@ -49,7 +49,9 @@
             <tbody>
               <tr *ngFor="let hospital of hospitales">
 
-                <td>{{hospital.img}}</td>
+                <td class="text-center"><img [src]="hospital.img | imagen:'hospitales'"
+                    [alt]="hospital.nombre"
+                    class="avatar"></td>
 
                 <td>
                   <input type="text"
@@ -70,7 +72,6 @@
                     data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
                 </td>
               </tr>
-
             </tbody>
           </table>
         </div>
