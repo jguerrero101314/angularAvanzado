@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Hospital } from '../../../models/hospital.model';
 import { HospitalService } from '../../../services/hospital.service';
+import { BusquedasService } from './../../../services/busquedas.service';
 import { ModalImagenService } from './../../../services/modal-imagen.service';
 
 @Component({
@@ -13,11 +14,14 @@ import { ModalImagenService } from './../../../services/modal-imagen.service';
 })
 export class HospitalesComponent implements OnInit {
   public hospitales: Hospital[] = [];
+  public hospitalesTemp: Hospital[] = [];
   public cargando: boolean = true;
   public imgSubs: Subscription;
+  @Input() hospital: string = '';
   constructor(
     private readonly hospitalService: HospitalService,
-    private readonly modalImagenService: ModalImagenService
+    private readonly modalImagenService: ModalImagenService,
+    private readonly busquedasService: BusquedasService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +31,18 @@ export class HospitalesComponent implements OnInit {
       .subscribe((img) => {
         console.log(img);
         this.cargarHospital();
+      });
+  }
+
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      return this.cargarHospital();
+    }
+
+    this.busquedasService
+      .buscar('hospitales', termino)
+      .subscribe((resultados) => {
+        this.hospitales = resultados;
       });
   }
 
@@ -53,7 +69,7 @@ export class HospitalesComponent implements OnInit {
   }
 
   async crearHospital() {
-    const { value } = await Swal.fire<string>({
+    const { value = '' } = await Swal.fire<string>({
       title: 'Crear Hospital',
       text: 'Ingrese el nombre del nuevo hospital',
       input: 'text',
