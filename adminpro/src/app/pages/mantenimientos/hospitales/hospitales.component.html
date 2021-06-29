@@ -40,7 +40,8 @@
           </div>
           <div class="col-4">
             <div class="mb-2 text-right">
-              <button class="btn btn-primary"><i class="fa fa-hospital-o mr-2"></i>Crear
+              <button class="btn btn-primary"
+                (click)="crearHospital()"><i class="fa fa-hospital-o mr-2"></i>Crear
                 Hospital</button>
             </div>
           </div>
@@ -63,7 +64,8 @@
                 <td class="text-center">
                   <img [src]="hospital.img | imagen:'hospitales'"
                     [alt]="hospital.nombre"
-                    class="avatar">
+                    class="avatar"
+                    (click)="abrirModal(hospital)">
                 </td>
 
                 <td>
@@ -74,14 +76,16 @@
                 </td>
 
                 <td class="text-nowrap text-center">
-                  <a href="#"
+                  <a (click)="guardarCambios(hospital)"
                     data-toggle="tooltip"
+                    class="cursor"
                     data-original-title="Guardar cambios"> <i
                       class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
 
-                  <a href="#"
+                  <a (click)="eliminarHospital(hospital)"
                     data-toggle="tooltip"
+                    class="cursor"
                     data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
                 </td>
               </tr>
