@@ -41,7 +41,7 @@ export class HospitalesComponent implements OnInit {
 
     this.busquedasService
       .buscar('hospitales', termino)
-      .subscribe((resultados) => {
+      .subscribe((resultados: Hospital[]) => {
         this.hospitales = resultados;
       });
   }
