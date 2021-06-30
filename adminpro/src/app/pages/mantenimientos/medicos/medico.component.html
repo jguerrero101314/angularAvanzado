@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col">
     <div class="card">
       <div class="card-body">
 
@@ -21,7 +21,9 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row"
+            *ngIf="medico.id">
+
             <label for="exampleInputuname3"
               class="col-sm-3 control-label">Nombre</label>
             <div class="col-sm-9">
@@ -68,14 +70,16 @@
     </div>
   </div>
 
-  <div class="col animated fadeIn fast">
+  <div class="col animated fadeIn fast"
+    *ngIf="hospitalSeleccionado">
+
     <div class="card">
       <div class="card-body">
 
         <h4 class="card-title">Hospital</h4>
-        <h6 class="card-subtitle">Hospital asignado</h6>
+        <h6 class="card-subtitle">{{hospitalSeleccionado.nombre}}</h6>
 
-        <img [src]=""
+        <img [src]="hospitalSeleccionado.img | imagen:'hospitales'"
           class="img-thumbnail" />
       </div>
     </div>

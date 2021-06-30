@@ -11,6 +11,7 @@ import { HospitalService } from './../../../services/hospital.service';
 export class MedicoComponent implements OnInit {
   public medicoForm: FormGroup;
   public hospitales: Hospital[] = [];
+  public hospitalSeleccionado: Hospital;
   constructor(
     private readonly fb: FormBuilder,
     private readonly hospitalService: HospitalService
@@ -22,6 +23,11 @@ export class MedicoComponent implements OnInit {
       hospital: ['', [Validators.required]],
     });
     this.cargarHospitales();
+    this.medicoForm.get('hospital').valueChanges.subscribe((hospitalID) => {
+      this.hospitalSeleccionado = this.hospitales.find(
+        (h) => h._id === hospitalID
+      );
+    });
   }
 
   cargarHospitales() {
@@ -29,7 +35,6 @@ export class MedicoComponent implements OnInit {
       .cargarHospitales()
       .subscribe((hospitales: Hospital[]) => {
         this.hospitales = hospitales;
-        console.log(hospitales);
       });
   }
 
