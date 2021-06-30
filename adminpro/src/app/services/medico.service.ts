@@ -10,6 +10,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class MedicoService {
+  public medico: Medico;
   get token(): string {
     return localStorage.getItem('token') || '';
   }

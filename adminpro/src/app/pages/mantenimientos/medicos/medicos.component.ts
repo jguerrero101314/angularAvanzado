@@ -42,9 +42,23 @@ export class MedicosComponent implements OnInit, OnDestroy {
   }
 
   eliminarMedico(medico: Medico) {
-    this.medicosService.eliminarMedico(medico._id).subscribe((resp) => {
-      this.cargarMedicos();
-      Swal.fire('Borrado', medico.nombre, 'success');
+    Swal.fire({
+      title: '¿Borrar medico?',
+      text: `Esta a punto de borrar a ${medico.nombre}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo',
+    }).then((result) => {
+      if (result.value) {
+        this.medicosService.eliminarMedico(medico._id).subscribe((resp) => {
+          this.cargarMedicos();
+          Swal.fire(
+            'medico borrado',
+            `${medico.nombre} fue eliminado correctamente`,
+            'success'
+          );
+        });
+      }
     });
   }
 
