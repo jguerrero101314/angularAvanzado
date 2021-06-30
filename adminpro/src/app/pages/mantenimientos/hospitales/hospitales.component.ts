@@ -85,8 +85,6 @@ export class HospitalesComponent implements OnInit {
     } else {
       Swal.fire('No puede ingresar hospital en blanco', value, 'error');
     }
-
-    console.log(value);
   }
 
   abrirModal(hospital: Hospital) {
