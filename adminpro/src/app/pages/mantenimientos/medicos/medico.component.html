@@ -6,7 +6,9 @@
         <h4 class="card-title">Médico</h4>
         <h6 class="card-subtitle">Actualizar información</h6>
 
-        <form class="form-horizontal p-t-20">
+        <form class="form-horizontal p-t-20"
+          [formGroup]="medicoForm"
+          (submit)="guardarMedico()">
 
           <div class="form-group row">
             <label for="exampleInputuname3"
@@ -42,8 +44,9 @@
                 <select class="form-control"
                   formControlName="hospital">
                   <option value="">Seleccione Hospital</option>
-                  <option [value]="">
-                    fff
+                  <option *ngFor="let hospital of hospitales"
+                    [value]="hospital._id">
+                    {{ hospital.nombre }}
                   </option>
                 </select>
               </div>
@@ -53,6 +56,7 @@
           <div class="form-group row m-b-0">
             <div class="offset-sm-3 col-sm-9">
               <button type="submit"
+                [disabled]="medicoForm.invalid"
                 class="btn btn-success waves-effect waves-light">
                 <i class="fa fa-save"></i>
                 Guardar
@@ -73,7 +77,6 @@
 
         <img [src]=""
           class="img-thumbnail" />
-
       </div>
     </div>
 
