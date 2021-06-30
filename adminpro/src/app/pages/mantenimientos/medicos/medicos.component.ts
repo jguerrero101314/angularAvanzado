@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import { Medico } from '../../../models/medico.model';
 import { BusquedasService } from './../../../services/busquedas.service';
 import { MedicoService } from './../../../services/medico.service';
@@ -37,6 +38,13 @@ export class MedicosComponent implements OnInit, OnDestroy {
     this.medicosService.cargarMedicos().subscribe((medicos) => {
       this.cargando = false;
       this.medicos = medicos;
+    });
+  }
+
+  eliminarMedico(medico: Medico) {
+    this.medicosService.eliminarMedico(medico._id).subscribe((resp) => {
+      this.cargarMedicos();
+      Swal.fire('Borrado', medico.nombre, 'success');
     });
   }
 
