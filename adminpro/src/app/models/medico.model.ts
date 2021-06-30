@@ -1,7 +1,7 @@
 import { Hospital } from './hospital.model';
 
 interface _MedicolUser {
-  _d: string;
+  _id: string;
   nombre: string;
   img: string;
 }

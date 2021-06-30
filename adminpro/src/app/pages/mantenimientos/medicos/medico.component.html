@@ -10,19 +10,20 @@
           [formGroup]="medicoForm"
           (submit)="guardarMedico()">
 
-          <div class="form-group row">
+          <div class="form-group row"
+            *ngIf="medicoSeleccionado">
+
             <label for="exampleInputuname3"
               class="col-sm-3 control-label">Foto</label>
             <div class="col-sm-9">
               <div class="input-group">
-                <img [src]=""
+                <img [src]="medicoSeleccionado.img | imagen:'medicos'"
                   class="w200" />
               </div>
             </div>
           </div>
 
-          <div class="form-group row"
-            *ngIf="medico.id">
+          <div class="form-group row">
 
             <label for="exampleInputuname3"
               class="col-sm-3 control-label">Nombre</label>
