@@ -16,32 +16,31 @@ import { MedicoService } from './../../../services/medico.service';
 export class MedicoComponent implements OnInit {
   public medicoForm: FormGroup;
   public hospitales: Hospital[] = [];
-  public hospitalSeleccionado: Hospital;
+
   public medicoSeleccionado: Medico;
+  public hospitalSeleccionado: Hospital;
 
   constructor(
-    private readonly fb: FormBuilder,
-    private readonly hospitalService: HospitalService,
-    private readonly medicosService: MedicoService,
-    private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
+    private fb: FormBuilder,
+    private hospitalService: HospitalService,
+    private medicoService: MedicoService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => this.cargarMedico(id));
 
     this.medicoForm = this.fb.group({
-      nombre: ['', [Validators.required]],
-      hospital: ['', [Validators.required]],
+      nombre: ['', Validators.required],
+      hospital: ['', Validators.required],
     });
-    this.cargarHospitales();
-    this.obtieneHospitalPorId();
-  }
 
-  obtieneHospitalPorId() {
-    this.medicoForm.get('hospital').valueChanges.subscribe((hospitalID) => {
+    this.cargarHospitales();
+
+    this.medicoForm.get('hospital').valueChanges.subscribe((hospitalId) => {
       this.hospitalSeleccionado = this.hospitales.find(
-        (h) => h._id === hospitalID
+        (h) => h._id === hospitalId
       );
     });
   }
@@ -51,7 +50,7 @@ export class MedicoComponent implements OnInit {
       return;
     }
 
-    this.medicosService
+    this.medicoService
       .obtenerMedicoPorId(id)
       .pipe(delay(100))
       .subscribe((medico) => {
@@ -78,11 +77,29 @@ export class MedicoComponent implements OnInit {
 
   guardarMedico() {
     const { nombre } = this.medicoForm.value;
-    this.medicosService
-      .crearMedico(this.medicoForm.value)
-      .subscribe((resp: Medico) => {
-        Swal.fire('Creado', `${nombre} correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/medico/${resp.medico._id}`);
+
+    if (this.medicoSeleccionado) {
+      // actualizar
+      const data = {
+        ...this.medicoForm.value,
+        _id: this.medicoSeleccionado._id,
+      };
+      this.medicoService.actualizarMedico(data).subscribe((resp) => {
+        Swal.fire(
+          'Actualizado',
+          `${nombre} actualizado correctamente`,
+          'success'
+        );
       });
+    } else {
+      // crear
+
+      this.medicoService
+        .crearMedico(this.medicoForm.value)
+        .subscribe((resp: any) => {
+          Swal.fire('Creado', `${nombre} creado correctamente`, 'success');
+          this.router.navigateByUrl(`/dashboard/medico/${resp.medico._id}`);
+        });
+    }
   }
 }

@@ -1,5 +1,5 @@
 interface _HospitalUser {
-  _d: string;
+  _id: string;
   nombre: string;
   img: string;
 }

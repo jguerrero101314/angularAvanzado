@@ -12,7 +12,6 @@ const getMedicos = async (req, res = response) => {
     medicos,
   });
 };
-
 const getMedicoById = async (req, res = response) => {
   const id = req.params.id;
 
