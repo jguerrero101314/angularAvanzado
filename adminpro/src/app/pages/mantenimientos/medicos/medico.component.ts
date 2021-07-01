@@ -5,8 +5,8 @@ import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Hospital } from '../../../models/hospital.model';
 import { Medico } from '../../../models/medico.model';
-import { HospitalService } from './../../../services/hospital.service';
-import { MedicoService } from './../../../services/medico.service';
+import { HospitalService } from '../../../services/hospital.service';
+import { MedicoService } from '../../../services/medico.service';
 
 @Component({
   selector: 'app-medico',
