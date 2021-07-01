@@ -62,6 +62,7 @@ export class MedicoComponent implements OnInit {
           nombre,
           hospital: { _id },
         } = medico;
+
         this.medicoSeleccionado = medico;
         this.medicoForm.setValue({ nombre, hospital: _id });
       });
