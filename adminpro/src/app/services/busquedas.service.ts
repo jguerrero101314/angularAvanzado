@@ -1,21 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-
-import { Usuario } from '../models/usuario.model';
+import { environment } from '../../environments/environment';
 import { Hospital } from '../models/hospital.model';
 import { Medico } from '../models/medico.model';
+import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BusquedasService {
-
-  constructor( private http: HttpClient ) { }
+  constructor(private http: HttpClient) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -24,54 +21,57 @@ export class BusquedasService {
   get headers() {
     return {
       headers: {
-        'x-token': this.token
-      }
-    }
+        'x-token': this.token,
+      },
+    };
   }
 
-  private transformarUsuarios( resultados: any[] ): Usuario[] {
-
+  private transformarUsuarios(resultados: any[]): Usuario[] {
     return resultados.map(
-      user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )  
+      (user) =>
+        new Usuario(
+          user.nombre,
+          user.email,
+          '',
+          user.img,
+          user.google,
+          user.role,
+          user.uid
+        )
     );
   }
 
-  private transformarHospitales( resultados: any[] ): Hospital[] {
+  private transformarHospitales(resultados: any[]): Hospital[] {
     return resultados;
   }
 
-  private transformarMedicos( resultados: any[] ): Medico[] {
+  private transformarMedicos(resultados: any[]): Medico[] {
     return resultados;
   }
 
-  buscar( 
-      tipo: 'usuarios'|'medicos'|'hospitales',
-      termino: string
-    ) {
+  buscar(tipo: 'usuarios' | 'medicos' | 'hospitales', termino: string) {
+    const url = `${base_url}/todo/coleccion/${tipo}/${termino}`;
+    return this.http.get<any[]>(url, this.headers).pipe(
+      map((resp: any) => {
+        switch (tipo) {
+          case 'usuarios':
+            return this.transformarUsuarios(resp.resultados);
 
-    const url = `${ base_url }/todo/coleccion/${ tipo }/${ termino }`;
-    return this.http.get<any[]>( url, this.headers )
-            .pipe(
-              map( (resp: any ) => { 
+          case 'hospitales':
+            return this.transformarHospitales(resp.resultados);
 
-                switch ( tipo ) {
-                  case 'usuarios':
-                    return this.transformarUsuarios( resp.resultados )
+          case 'medicos':
+            return this.transformarMedicos(resp.resultados);
 
-                  case 'hospitales':
-                    return this.transformarHospitales( resp.resultados )
-
-                  case 'medicos':
-                     return this.transformarMedicos( resp.resultados )
-                
-                  default:
-                    return [];
-                }
-
-              })
-            );
-
+          default:
+            return [];
+        }
+      })
+    );
   }
 
-
+  busquedaGlobal(termino: string) {
+    const url = `${base_url}/todo/${termino}`;
+    return this.http.get(url, this.headers);
+  }
 }

@@ -28,7 +28,7 @@ const routes: Routes = [
         data: { titulo: 'Dashboard' },
       },
       {
-        path: 'buscar/:txtTermino',
+        path: 'buscar/:termino',
         component: BusquedasComponent,
         data: { titulo: 'Busquedas' },
       },
