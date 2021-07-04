@@ -49,7 +49,7 @@ export class UsuarioService {
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
           client_id:
-            '585957126836-0hs53r3vik66rsanprtqh04cbd2u0tkv.apps.googleusercontent.com',
+            '585957126836-k63po4mld16gv2lab0v245716v2dpup2.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
 
@@ -58,8 +58,14 @@ export class UsuarioService {
     });
   }
 
+  guardarLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
@@ -79,7 +85,7 @@ export class UsuarioService {
         map((resp: any) => {
           const { email, google, nombre, role, img = '', uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-          localStorage.setItem('token', resp.token);
+          this.guardarLocalStorage(resp.token, resp.menu);
           return true;
         }),
         catchError((error) => of(false))
@@ -87,11 +93,11 @@ export class UsuarioService {
   }
 
   crearUsuario(formData: RegisterForm) {
-    return this.http.post(`${base_url}/usuarios`, formData).pipe(
-      tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
-      })
-    );
+    return this.http
+      .post(`${base_url}/usuarios`, formData)
+      .pipe(
+        tap((resp: any) => this.guardarLocalStorage(resp.token, resp.menu))
+      );
   }
 
   actualizarPerfil(data: { email: string; nombre: string; role: string }) {
@@ -108,19 +114,19 @@ export class UsuarioService {
   }
 
   login(formData: LoginForm) {
-    return this.http.post(`${base_url}/login`, formData).pipe(
-      tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
-      })
-    );
+    return this.http
+      .post(`${base_url}/login`, formData)
+      .pipe(
+        tap((resp: any) => this.guardarLocalStorage(resp.token, resp.menu))
+      );
   }
 
   loginGoogle(token) {
-    return this.http.post(`${base_url}/login/google`, { token }).pipe(
-      tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
-      })
-    );
+    return this.http
+      .post(`${base_url}/login/google`, { token })
+      .pipe(
+        tap((resp: any) => this.guardarLocalStorage(resp.token, resp.menu))
+      );
   }
 
   cargarUsuarios(desde: number = 0) {
